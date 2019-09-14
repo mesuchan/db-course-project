@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopGrabber.Models
+namespace CourseProject.Models
 {
     public class ProductFabric
     {
