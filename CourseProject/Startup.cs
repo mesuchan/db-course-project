@@ -59,6 +59,7 @@ namespace CourseProject
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
+                spa.Options.StartupTimeout = System.TimeSpan.FromMinutes(2);
 
                 if (env.IsDevelopment())
                 {
