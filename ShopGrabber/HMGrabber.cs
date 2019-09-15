@@ -34,7 +34,7 @@ namespace ShopGrabber
 
                 Product product = new Product();
 
-                product.ProductId = i + 1;
+                //product.ProductId = i + 1;
 
                 var element = page.DocumentNode.SelectSingleNode("//h1[@class='primary product-item-headline']");
                 product.Name = element.InnerHtml;
@@ -42,7 +42,7 @@ namespace ShopGrabber
                 element = page.DocumentNode.SelectSingleNode("//span[@class='price-value']");
                 product.Price = Int32.Parse(FindNumbers(element.InnerText));
 
-                element = page.DocumentNode.SelectSingleNode("//span[@class='product-input-label']");
+                element = page.DocumentNode.SelectSingleNode("//h3[@class='product-input-label']");
                 product.Color = element.InnerHtml;
 
                 product.Country = Countries[R.Next(0, 5)];
@@ -50,9 +50,9 @@ namespace ShopGrabber
                 element = page.DocumentNode.SelectSingleNode("//p[@class='pdp-description-text']");
                 product.Description = element.InnerHtml;
 
-                element = page.DocumentNode.SelectSingleNode("//p[@class='product-detail-main-image-container']");
+                element = page.DocumentNode.SelectSingleNode("//div[@class='product-detail-main-image-container']//img");
                 var pictureUrl = element.GetAttributeValue("src", "");
-                var request = HttpWebRequest.Create(pictureUrl);
+                var request = HttpWebRequest.Create("https:" + pictureUrl);
                 var response = request.GetResponse();
                 var stream = response.GetResponseStream();
                 var reader = new BinaryReader(stream);

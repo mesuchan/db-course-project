@@ -29,7 +29,7 @@ namespace ShopGrabber
             {
                 Customer customer = new Customer();
 
-                customer.CustomerId = i + 1;
+                //customer.CustomerId = i + 1;
 
                 if (R.Next(0, 2) == 0)
                 {

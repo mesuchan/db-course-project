@@ -20,7 +20,7 @@ namespace ShopGrabber
             {
                 Purchase purchase = new Purchase();
 
-                purchase.PurchaseId = i + 1;
+                //purchase.PurchaseId = i + 1;
                 purchase.CustomerId = R.Next(1, 101);
 
                 purchase.Cost = R.Next(1000, 10000);

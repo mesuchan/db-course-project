@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CourseProject.Models;
 
 using Autofac;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShopGrabber
 {
@@ -20,6 +21,9 @@ namespace ShopGrabber
             builder.RegisterType<GenerateCustomerRandom>().As<ICustomerGenerator>();
             builder.RegisterType<GeneratePurchaseRandom>().As<IPurchaseGenerator>();
             builder.RegisterType<GeneratePurchaseProduct>().As<IPurchaseProductGenerator>();
+            var optionsBuilder = new DbContextOptionsBuilder<Context>();
+            optionsBuilder.UseSqlServer("Server=LAPTOP-F93IBOP5;Database=App;User=App;Password=1234;Trusted_Connection=True;");
+            builder.RegisterInstance(new Context(optionsBuilder.Options));
 
             builder.RegisterType<EFPutter>().As<IPutter>();
 
@@ -39,9 +43,9 @@ namespace ShopGrabber
                 Console.WriteLine("ProductPurchases were done!!");
 
                 var putter = container.Resolve<IPutter>();
-                putter.PutProducts(products);
-                putter.PutSizes(products);
-                putter.PutFabrics(products);
+                //putter.PutProducts(products);
+                //putter.PutSizes(products);
+                //putter.PutFabrics(products);
                 putter.PutCustomers(customers);
                 putter.PutPurchases(purchases);
                 putter.PutPurchaseProducts(purchaseProducts);
