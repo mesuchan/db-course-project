@@ -13,13 +13,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CourseProject.Controllers
 {
-    class LoginPassword
+    public 
+        class LoginPassword
     {
         public string Login { get; set; }
         public string Password { get; set; }
     }
 
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -29,6 +30,7 @@ namespace CourseProject.Controllers
             this.userManager = userManager;
         }
 
+        [HttpPost]
         public async Task<ActionResult> Auth([FromBody] LoginPassword loginPassword)
         {
             var user = await userManager.FindByNameAsync(loginPassword.Login);
@@ -43,6 +45,22 @@ namespace CourseProject.Controllers
             {
                 AccessToken = GenerateAccessToken(loginPassword.Login)
             });
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult> Reg([FromBody] LoginPassword loginPassword)
+        {
+            var user = await userManager.FindByNameAsync(loginPassword.Login);
+
+            if (user != null)
+                return BadRequest();
+
+            var res = await userManager.CreateAsync(new IdentityUser(loginPassword.Login), loginPassword.Password);
+
+            if (!res.Succeeded)
+                return BadRequest();
+
+            return Ok();
         }
 
         private string GenerateAccessToken(string userName)
