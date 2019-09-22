@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="container mb-3" *ngFor="let p of c.cart">
+    <div class="row">
+      <div class="col-2">
+        <img class="img-fluid" [src]="'data:image/jpeg;base64,' + p.product['picture']" alt="...">
+      </div>
+      <div class="col-10">
+        <p>{{p.product['name']}}</p>
+        <p>{{p.product['price']}} Руб</p>
+        <p>{{p.size}}</p>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary d-block mb-3" *ngIf="!c.isEmpty" (click)="c.clearCart()">Очистить корзину</a>
+  <a class="btn btn-primary d-block" *ngIf="!c.isEmpty" (click)="c.order()">Оформить заказ</a>
+  <p *ngIf="c.isEmpty">Ваша корзина пуста.</p>
+</div>

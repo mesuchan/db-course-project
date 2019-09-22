@@ -1,7 +1,8 @@
-<div class="card" style="width: 18rem;">
-  <img src="" class="card-img-top" alt="No picture">
+<div class="card d-inline-block m-2" style="width: 18rem;">
+  <img [src]="'data:image/jpeg;base64,' + product['picture']" class="card-img-top" alt="No picture">
   <div class="card-body">
-    <h5 class="card-title">Name</h5>
-    <a href="" class="btn btn-primary">Добавить в корзину</a>
+    <h5 class="card-title">
+      <a [routerLink]="['product', product['productId']]">{{product['name']}}</a>
+    </h5>
   </div>
 </div>

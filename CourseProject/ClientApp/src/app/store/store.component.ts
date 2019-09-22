@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataSourceService } from '../data-source.service';
 
 @Component({
   selector: 'app-store',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreComponent implements OnInit {
 
-  constructor() { }
+  products: any[] = [];
+  loaded: boolean = false;
+
+  constructor(private ds: DataSourceService) { }
 
   ngOnInit() {
+    this.ds.getAllProducts().subscribe(p => { this.products = p; this.loaded = true; });
   }
-
 }

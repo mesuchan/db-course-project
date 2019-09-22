@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace CourseProject.Models
 {
@@ -10,5 +6,10 @@ namespace CourseProject.Models
     {
         public int PurchaseId { get; set; }
         public int ProductId { get; set; }
+        public int Size { get; set; }
+
+        [JsonIgnore]
+        public Purchase Purchase { get; set; }
+        public Product Product { get; set; }
     }
 }

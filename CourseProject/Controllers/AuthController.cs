@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +41,7 @@ namespace CourseProject.Controllers
 
             return Ok(new
             {
-                AccessToken = GenerateAccessToken(loginPassword.Login)
+                AccessToken = GenerateAccessToken(user.Id)
             });
         }
 
@@ -63,11 +61,11 @@ namespace CourseProject.Controllers
             return Ok();
         }
 
-        private string GenerateAccessToken(string userName)
+        private string GenerateAccessToken(string userId)
         {
             var claims = new Claim[]
             {
-                new Claim("user", userName)
+                new Claim(ClaimTypes.Sid, userId)
             };
 
             var jwt = new JwtSecurityToken(

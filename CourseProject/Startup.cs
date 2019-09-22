@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace CourseProject
@@ -35,6 +36,7 @@ namespace CourseProject
 
             services.AddIdentityCore<IdentityUser>(options =>
             {
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Sid;
                 options.Password.RequiredLength = 1;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredUniqueChars = 1;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataSourceService } from '../data-source.service';
 
 @Component({
   selector: 'app-title',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ds: DataSourceService) { }
 
   ngOnInit() {
   }
 
+  get logged(): boolean {
+    return this.ds.isLogged;
+  }
 }
