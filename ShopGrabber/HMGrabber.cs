@@ -20,7 +20,8 @@ namespace ShopGrabber
         Random R = new Random();
         List<string> Countries = new List<string>(5) { "Индия", "Китай", "Бангладеш", "Мьянма", "Вьетнам" };
         List<string> Fabrics = new List<string>(10) { "Хлопок", "Вискоза", "Полиэстр", "Эластан", "Акрил", "Шелк", "Лен", "Шерсть", "Нейлон", "Шифон"};
-        
+        List<string> Colors = new List<string>(6) { "Красный", "Желтый", "Зеленый", "Синий", "Черный", "Белый"};
+
         public List<Product> GrabProducts(int amount)
         {
             List<Product> products = new List<Product>(amount);
@@ -42,8 +43,8 @@ namespace ShopGrabber
                 element = page.DocumentNode.SelectSingleNode("//span[@class='price-value']");
                 product.Price = Int32.Parse(FindNumbers(element.InnerText));
 
-                element = page.DocumentNode.SelectSingleNode("//h3[@class='product-input-label']");
-                product.Color = element.InnerHtml;
+                //var elements = page.DocumentNode.SelectNodes("//div[contains(@class, 'product-colors')]//h3[@class='product-input-label']");
+                product.Color = Colors[R.Next(0, 6)];
 
                 product.Country = Countries[R.Next(0, 5)];
 

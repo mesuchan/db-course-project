@@ -55,6 +55,14 @@ export class DataSourceService {
     return this.http.post <any>(this.base + 'products/purchase', o, this.getOptions());
   }
 
+  view(id: number): Observable<any> {
+    return this.http.post<any>(this.base + 'products/' + id.toString(), {}, this.getOptions());
+  }
+
+  recommended(): Observable<any> {
+    return this.http.get<any>(this.base + 'products/recommended', this.getOptions());
+  }
+
   deauth() {
     this.token = null;
   }

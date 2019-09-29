@@ -24,11 +24,8 @@ export class RegisterComponent implements OnInit {
     if (this.regForm.value['password'] == this.regForm.value['cpassword']) {
       this.ds.register(this.regForm.value['login'], this.regForm.value['password'])
         .subscribe(res => {
-          if (res)
-            this.router.navigate(["profile"]);
-          else
-            alert("Ошибка при регистрации!");
-        });
+          this.router.navigate(["login"]);
+        }, e => { alert("Ошибка регистрации!")});
     }
     else
       alert("Пароли не совпадают!");

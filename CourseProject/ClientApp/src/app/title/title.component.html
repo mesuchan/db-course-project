@@ -1,9 +1,9 @@
 <nav class="navbar navbar-light bg-light mb-3">
   <a class="navbar-brand" [routerLink]="['']">Lorem ipsum dolor</a>
   <div *ngIf="logged">
-    <div class="dropdown" dropdown>
-      <a dropdownToggle class="pull-left text-center btn btn-setting dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria- expanded="true"><i class="fa fa-user"></i></a>
-      <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="menu1">
+    <div class="dropdown" dropdown placement="bottom right">
+      <a dropdownToggle class="text-center btn btn-setting dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-user"></i></a>
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right text-center" role="menu">
         <li role="presentation">
           <a role="menuitem" tabindex="-1" [routerLink]="['profile']">
             Профиль

@@ -19,7 +19,13 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get("id");
-    this.ds.getProduct(id).subscribe(p => { this.product = p; this.recomended.push(this.product); });
+    this.ds.view(parseInt(id)).subscribe();
+    this.ds.recommended().subscribe(r => this.recomended = r);
+    this.ds.getProduct(id).subscribe(p => {
+      p.sizes = p.sizes.filter(p => p.quantity != 0);
+      this.product = p;
+      this.recomended.push(this.product);
+    });
   }
 
   add(p: any) {

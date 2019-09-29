@@ -55,14 +55,64 @@ namespace CourseProject.Controllers
             foreach (var pp in value.PurchaseProducts)
             {
                 pp.PurchaseId = purchase.PurchaseId;
-
-                var size = context.Sizes.Find(new { pp.ProductId, pp.Size });
+                
+                var size = context.Sizes.Find(pp.ProductId, pp.Size);
                 size.Quantity--;
                 context.Update(size);
+
+                var v = context.Vieweds.Find(customer.CustomerId, pp.ProductId);
+                if (v != null)
+                {
+                    context.Remove(v);
+                    context.SaveChanges();
+                }
             }
             context.AddRange(value.PurchaseProducts);
+
             await context.SaveChangesAsync();
             return Ok(purchase);
+        }
+        
+        [Authorize]
+        [HttpPost("{id}")]
+        public async Task<ActionResult> View(int id)
+        {
+            var p = context.Products.Find(id);
+            if (p == null)
+                return NotFound();
+
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var customer = await Customer.GetOrCreateAsync(context, user);
+
+            var v = context.Vieweds.Find(customer.CustomerId, id);
+            if (v == null)
+            {
+                v = new Viewed { CustomerId = customer.CustomerId, ProductId = id, Count = 0 };
+                context.Add(v);
+            }
+            else
+                context.Update(v);
+
+            v.Count++;
+
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("recommended")]
+        public async Task<ActionResult> Recommended()
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var customer = await Customer.GetOrCreateAsync(context, user);
+
+            var r = from v in context.Vieweds.Include(v => v.Product)
+                    where v.CustomerId == customer.CustomerId
+                    orderby v.Count descending
+                    select v.Product;
+
+            return Ok(r);
         }
     }
 }

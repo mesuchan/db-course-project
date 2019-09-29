@@ -43,12 +43,12 @@ namespace ShopGrabber
                 Console.WriteLine("ProductPurchases were done!!");
 
                 var putter = container.Resolve<IPutter>();
-                //putter.PutProducts(products);
-                //putter.PutSizes(products);
-                //putter.PutFabrics(products);
-                putter.PutCustomers(customers);
-                putter.PutPurchases(purchases);
-                putter.PutPurchaseProducts(purchaseProducts);
+                putter.PutProducts(products);
+                putter.PutSizes(products);
+                putter.PutFabrics(products);
+                //putter.PutCustomers(customers);
+                //putter.PutPurchases(purchases);
+                //putter.PutPurchaseProducts(purchaseProducts);
             }
         }
     }
